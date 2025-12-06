@@ -1,4 +1,4 @@
-// Metro Rail Projects Tracker - Main JavaScript
+// Metro Rail Projects Tracker - Main JavaScript with Global Support & Auto-Update
 let allMetroData = {}; // Store all data globally
 
 // Function to load data from data.json
@@ -10,7 +10,9 @@ async function loadMetroData() {
     displayStats(data);
     displayNews(data);
     populateCityDropdown(data);
+    populateGlobalCityDropdown(data);
     createCityClickableList(data);
+    updateLastRefreshTime();
   } catch (error) {
     console.error('Error loading data:', error);
     document.getElementById('india-stats').innerHTML = 'Error loading data';
@@ -19,10 +21,20 @@ async function loadMetroData() {
   }
 }
 
+// Function to update last refresh timestamp
+function updateLastRefreshTime() {
+  const now = new Date();
+  const timeString = now.toLocaleTimeString();
+  const lastUpdateEl = document.getElementById('last-update-time');
+  if (lastUpdateEl) {
+    lastUpdateEl.textContent = 'Last updated: ' + timeString;
+  }
+}
+
 // Function to display statistics
 function displayStats(data) {
   const indiaProjects = data.projects.filter(p => p.region === 'India');
-  const globalProjects = data.projects.filter(p => p.region !== 'India');
+  const globalProjects = data.projects.filter(p => p.region === 'World');
   
   const operationalCount = indiaProjects.filter(p => p.status.includes('Operational')).length;
   const underConstructionCount = indiaProjects.filter(p => p.status.includes('Under Construction')).length;
@@ -34,29 +46,29 @@ function displayStats(data) {
   document.getElementById('india-construction').textContent = underConstructionCount;
   document.getElementById('india-planned').textContent = proposedCount;
   
-  document.getElementById('global-countries').textContent = globalProjects.length;
+  // Global stats
+  const globalOperational = globalProjects.filter(p => p.status.includes('Operational')).length;
+  const globalUnderConstruction = globalProjects.filter(p => p.status.includes('Under Construction')).length;
+  const uniqueCountries = new Set(globalProjects.map(p => p.country)).size;
+  
+  document.getElementById('global-countries').textContent = uniqueCountries;
   document.getElementById('global-systems').textContent = globalProjects.length;
   document.getElementById('global-stations').textContent = globalProjects.reduce((sum, p) => sum + p.stations, 0);
 }
 
-// Function to populate city dropdown
+// Function to populate India city dropdown
 function populateCityDropdown(data) {
-  const indiaProjects = data.projects.filter(p => p.region === 'India').sort((a, b) => a.city.localeCompare(b.city));
+  const indiaProjects = data.projects.filter(p => p.region === 'India');
   const dropdown = document.getElementById('metro-city-dropdown');
   
-  // Clear existing options except the first one
-  while (dropdown.options.length > 1) {
-    dropdown.remove(1);
-  }
-  
+  dropdown.innerHTML = '<option value="">Select an Indian city...</option>';
   indiaProjects.forEach(metro => {
     const option = document.createElement('option');
     option.value = metro.id;
-    option.textContent = metro.city + ' - ' + metro.status;
+    option.textContent = metro.city + ' Metro';
     dropdown.appendChild(option);
   });
   
-  // Add event listener for dropdown change
   dropdown.addEventListener('change', function() {
     if (this.value) {
       const selectedMetro = indiaProjects.find(p => p.id === parseInt(this.value));
@@ -67,46 +79,29 @@ function populateCityDropdown(data) {
   });
 }
 
-// Function to create clickable city list
-function createCityClickableList(data) {
-  const indiaProjects = data.projects.filter(p => p.region === 'India').sort((a, b) => a.city.localeCompare(b.city));
-  const container = document.getElementById('india-projects-details');
+// Function to populate Global city dropdown
+function populateGlobalCityDropdown(data) {
+  const globalProjects = data.projects.filter(p => p.region === 'World');
+  const dropdown = document.getElementById('global-city-dropdown');
   
-  let htmlContent = '<h3>Click on any city to view status:</h3><div class="city-list">';
+  if (!dropdown) return; // Skip if element doesn't exist
   
-  indiaProjects.forEach(metro => {
-    const statusClass = getStatusClass(metro.status);
-    htmlContent += `
-      <div class="city-card ${statusClass}" onclick="displayCityDetailsFromCard('${metro.id}')">
-        <div class="city-name">${metro.city} Metro</div>
-        <div class="city-status">Status: ${metro.status}</div>
-        <div class="city-details">Lines: ${metro.lines} | Stations: ${metro.stations}</div>
-      </div>
-    `;
+  dropdown.innerHTML = '<option value="">Select a global city...</option>';
+  globalProjects.forEach(metro => {
+    const option = document.createElement('option');
+    option.value = metro.id;
+    option.textContent = metro.city + ' (' + metro.country + ')';
+    dropdown.appendChild(option);
   });
   
-  htmlContent += '</div>';
-  container.innerHTML = htmlContent;
-}
-
-// Function to get status class for styling
-function getStatusClass(status) {
-  if (status.includes('Operational') && !status.includes('Construction')) return 'operational';
-  if (status.includes('Under Construction')) return 'under-construction';
-  if (status.includes('Partially')) return 'partially-operational';
-  if (status === 'Proposed') return 'proposed';
-  return 'default';
-}
-
-// Function to display city details from card click
-function displayCityDetailsFromCard(metroId) {
-  const indiaProjects = allMetroData.projects.filter(p => p.region === 'India');
-  const selectedMetro = indiaProjects.find(p => p.id === parseInt(metroId));
-  if (selectedMetro) {
-    displayCityDetails(selectedMetro);
-    // Also update dropdown
-    document.getElementById('metro-city-dropdown').value = metroId;
-  }
+  dropdown.addEventListener('change', function() {
+    if (this.value) {
+      const selectedMetro = globalProjects.find(p => p.id === parseInt(this.value));
+      displayGlobalCityDetails(selectedMetro);
+    } else {
+      resetGlobalCityDetails();
+    }
+  });
 }
 
 // Function to display city details
@@ -115,21 +110,33 @@ function displayCityDetails(metro) {
   document.getElementById('selected-city-status').textContent = metro.status;
   document.getElementById('selected-city-lines').textContent = metro.lines;
   document.getElementById('selected-city-stations').textContent = metro.stations;
-  document.getElementById('selected-city-year').textContent = metro.launchYear || 'TBD';
+  document.getElementById('selected-city-year').textContent = metro.launchYear || 'Coming soon';
   
-  let description = `<strong>${metro.city} Metro Rail Project</strong><br/>`;
-  description += `<strong>Status:</strong> ${metro.status}<br/>`;
-  description += `<strong>State:</strong> ${metro.state || 'N/A'}<br/>`;
-  description += `<strong>Number of Lines:</strong> ${metro.lines}<br/>`;
-  description += `<strong>Total Stations:</strong> ${metro.stations}<br/>`;
-  description += `<strong>Network Length:</strong> ${metro.networkLength || 'N/A'}<br/>`;
-  if (metro.launchYear) {
-    description += `<strong>Operational Since:</strong> ${metro.launchYear}<br/>`;
-  }
-  if (metro.expectedCompletion) {
-    description += `<strong>Expected Completion:</strong> ${metro.expectedCompletion}<br/>`;
-  }
+  let description = `<strong>${metro.city} Metro Rail:</strong><br>
+Status: ${metro.status}<br>
+Number of Lines: ${metro.lines}<br>
+Total Stations: ${metro.stations}<br>
+Network Length: ${metro.networkLength}<br>
+Operational Since: ${metro.launchYear || 'Planned'}`;
   document.getElementById('city-description').innerHTML = description;
+}
+
+// Function to display global city details
+function displayGlobalCityDetails(metro) {
+  document.getElementById('selected-global-city-name').textContent = metro.city + ' - ' + metro.country;
+  document.getElementById('selected-global-city-status').textContent = metro.status;
+  document.getElementById('selected-global-city-lines').textContent = metro.lines;
+  document.getElementById('selected-global-city-stations').textContent = metro.stations;
+  document.getElementById('selected-global-city-year').textContent = metro.launchYear;
+  
+  let description = `<strong>${metro.name}</strong><br>
+City: ${metro.city}, ${metro.country}<br>
+Status: ${metro.status}<br>
+Number of Lines: ${metro.lines}<br>
+Total Stations: ${metro.stations}<br>
+Network Length: ${metro.networkLength}<br>
+Launch Year: ${metro.launchYear}`;
+  document.getElementById('global-city-description').innerHTML = description;
 }
 
 // Function to reset city details
@@ -139,14 +146,23 @@ function resetCityDetails() {
   document.getElementById('selected-city-lines').textContent = '-';
   document.getElementById('selected-city-stations').textContent = '-';
   document.getElementById('selected-city-year').textContent = '-';
-  document.getElementById('city-description').innerHTML = '<p>Select a city to view detailed information</p>';
+  document.getElementById('city-description').textContent = 'Select a city to view detailed information';
+}
+
+// Function to reset global city details
+function resetGlobalCityDetails() {
+  document.getElementById('selected-global-city-name').textContent = 'Select a city from dropdown';
+  document.getElementById('selected-global-city-status').textContent = '-';
+  document.getElementById('selected-global-city-lines').textContent = '-';
+  document.getElementById('selected-global-city-stations').textContent = '-';
+  document.getElementById('selected-global-city-year').textContent = '-';
+  document.getElementById('global-city-description').textContent = 'Select a city to view detailed information';
 }
 
 // Function to display latest news
 function displayNews(data) {
   const newsList = document.getElementById('news-list');
-  let news = data.news || [];
-  const latestNews = news.slice(0, 5); // Show top 5 latest news
+  const latestNews = data.news ? data.news.slice(0, 5) : []; // Show top 5 latest news
   
   if (latestNews.length === 0) {
     newsList.innerHTML = '<li>No news available</li>';
@@ -154,17 +170,39 @@ function displayNews(data) {
   }
   
   let newsHTML = '';
-  latestNews.forEach(newsItem => {
+  latestNews.forEach(news => {
     newsHTML += `
-      <li>
-        <h3>${newsItem.title}</h3>
-        <p>${newsItem.description}</p>
-        <small>📅 ${newsItem.date} | 📍 ${newsItem.location}</small>
-      </li>
+    <li>
+      <h3>${news.title}</h3>
+      <p>${news.description}</p>
+      <small>📅 ${news.date} | 📍 ${news.location}</small>
+    </li>
     `;
   });
   
   newsList.innerHTML = newsHTML;
+}
+
+// Function to create clickable city list
+function createCityClickableList(data) {
+  const indiaProjects = data.projects.filter(p => p.region === 'India');
+  const cityListContainer = document.getElementById('india-metro-cards');
+  
+  if (!cityListContainer) return;
+  
+  let cardsHTML = '';
+  indiaProjects.forEach(metro => {
+    const statusColor = metro.status === 'Operational' ? '#4CAF50' : metro.status.includes('Under') ? '#FFC107' : '#2196F3';
+    cardsHTML += `
+    <div class="metro-card" onclick="displayCityDetails(${JSON.stringify(metro).replace(/"/g, '&quot;')}); document.getElementById('metro-city-dropdown').value = ${metro.id};" style="cursor: pointer; padding: 15px; margin: 10px 0; border-left: 4px solid ${statusColor}; background: #f5f5f5; border-radius: 4px;">
+      <h4>${metro.city} Metro</h4>
+      <p>Status: <strong>${metro.status}</strong></p>
+      <p>Lines: ${metro.lines} | Stations: ${metro.stations}</p>
+    </div>
+    `;
+  });
+  
+  cityListContainer.innerHTML = cardsHTML;
 }
 
 // Auto-refresh data every 5 minutes (300000 milliseconds)
@@ -172,3 +210,9 @@ setInterval(loadMetroData, 300000);
 
 // Load data when page loads
 document.addEventListener('DOMContentLoaded', loadMetroData);
+
+// Manual refresh function
+function manualRefresh() {
+  console.log('Manually refreshing data...');
+  loadMetroData();
+}
