@@ -276,3 +276,134 @@ section h2 {
     padding: 1.5rem;
   }
 }
+
+
+/* City List and Cards - Clickable Interface */
+.city-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.city-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.city-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.city-card.operational {
+  border-left: 5px solid #4CAF50;
+  background: linear-gradient(to bottom, rgba(76, 175, 80, 0.05), white);
+}
+
+.city-card.operational:hover {
+  border-color: #4CAF50;
+  box-shadow: 0 6px 16px rgba(76, 175, 80, 0.3);
+}
+
+.city-card.partially-operational {
+  border-left: 5px solid #FFC107;
+  background: linear-gradient(to bottom, rgba(255, 193, 7, 0.05), white);
+}
+
+.city-card.partially-operational:hover {
+  border-color: #FFC107;
+  box-shadow: 0 6px 16px rgba(255, 193, 7, 0.3);
+}
+
+.city-card.under-construction {
+  border-left: 5px solid #FF9800;
+  background: linear-gradient(to bottom, rgba(255, 152, 0, 0.05), white);
+}
+
+.city-card.under-construction:hover {
+  border-color: #FF9800;
+  box-shadow: 0 6px 16px rgba(255, 152, 0, 0.3);
+}
+
+.city-card.proposed {
+  border-left: 5px solid #2196F3;
+  background: linear-gradient(to bottom, rgba(33, 150, 243, 0.05), white);
+}
+
+.city-card.proposed:hover {
+  border-color: #2196F3;
+  box-shadow: 0 6px 16px rgba(33, 150, 243, 0.3);
+}
+
+.city-card.default {
+  border-left: 5px solid #9E9E9E;
+}
+
+.city-name {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.8rem;
+}
+
+.city-status {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 0.6rem;
+  font-weight: 500;
+}
+
+.city-details {
+  font-size: 0.9rem;
+  color: #888;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 0.8rem;
+  margin-top: 0.8rem;
+}
+
+/* Responsive adjustments for city cards */
+@media (max-width: 1024px) {
+  .city-list {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .city-list {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .city-card {
+    padding: 1.25rem;
+  }
+  
+  .city-name {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .city-card {
+    padding: 1rem;
+  }
+  
+  .city-name {
+    font-size: 1.1rem;
+  }
+  
+  .city-status {
+    font-size: 0.9rem;
+  }
+  
+  .city-details {
+    font-size: 0.85rem;
+  }
+}
