@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Metro Projects - World Cities</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Global Metro Rail Projects Tracker</h1>
+    <nav>
+      <a href="../">Home</a>
+      <a href="../">India</a>
+      <a href="#">World</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Global Metro Summary Section -->
+    <section id="global-metro-section" class="global-summary-section">
+      <h2>World Metro Rail Projects Summary</h2>
+      <p>Explore metro rail systems from 16 countries across the globe</p>
+      <p id="last-update-time" style="font-size: 0.9em; color: #666;">Last updated: Loading...</p>
+
+      <!-- City Selector -->
+      <div class="city-selector">
+        <label for="global-city-dropdown"><strong>Select Global City:</strong></label>
+        <select id="global-city-dropdown" class="metro-dropdown">
+          <option value="">-- Select a Global Metro City --</option>
+        </select>
+      </div>
+
+      <!-- Global Summary Stats -->
+      <div class="global-summary-stats">
+        <div class="summary-stat-box">
+          <h4>City Name</h4>
+          <p id="selected-global-city-name">Select a city from dropdown</p>
+        </div>
+        <div class="summary-stat-box">
+          <h4>Status</h4>
+          <p id="selected-global-city-status">-</p>
+        </div>
+        <div class="summary-stat-box">
+          <h4>Number of Lines</h4>
+          <p id="selected-global-city-lines">-</p>
+        </div>
+        <div class="summary-stat-box">
+          <h4>Total Stations</h4>
+          <p id="selected-global-city-stations">-</p>
+        </div>
+        <div class="summary-stat-box">
+          <h4>Operational Since</h4>
+          <p id="selected-global-city-year">-</p>
+        </div>
+      </div>
+
+      <!-- Global Projects Details -->
+      <div id="global-projects-details" class="projects-details">
+        <h3>Metro System Details</h3>
+        <p id="global-city-description">Select a city to view detailed information</p>
+      </div>
+
+      <!-- Global Statistics Panel -->
+      <div class="stats-panel">
+        <h3>Global Metro Statistics</h3>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <p><strong>Total Countries:</strong> <span id="global-countries">Loading...</span></p>
+          </div>
+          <div class="stat-card">
+            <p><strong>Total Systems:</strong> <span id="global-systems">Loading...</span></p>
+          </div>
+          <div class="stat-card">
+            <p><strong>Total Stations:</strong> <span id="global-stations">Loading...</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Manual Refresh Button -->
+    <section style="text-align: center; margin: 30px 0;">
+      <button onclick="manualRefresh()" style="padding: 10px 20px; background-color: #2196F3; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">
+        🔄 Refresh Data
+      </button>
+      <p style="font-size: 0.9em; color: #666;">Data auto-refreshes every 5 minutes</p>
+    </section>
+  </main>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
