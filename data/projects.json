@@ -321,6 +321,199 @@
       "expectedCompletion": "2027-28",
       "launchYear": null
     }
+  ,
+    {
+      "id": 27,
+      "name": "London Underground",
+      "city": "London",
+      "country": "United Kingdom",
+      "region": "World",
+      "status": "Operational",
+      "lines": 11,
+      "stations": 272,
+      "networkLength": "402 km",
+      "launchYear": 1863
+    },
+    {
+      "id": 28,
+      "name": "Paris Metro",
+      "city": "Paris",
+      "country": "France",
+      "region": "World",
+      "status": "Operational",
+      "lines": 16,
+      "stations": 303,
+      "networkLength": "220 km",
+      "launchYear": 1900
+    },
+    {
+      "id": 29,
+      "name": "Moscow Metro",
+      "city": "Moscow",
+      "country": "Russia",
+      "region": "World",
+      "status": "Operational",
+      "lines": 15,
+      "stations": 243,
+      "networkLength": "416 km",
+      "launchYear": 1935
+    },
+    {
+      "id": 30,
+      "name": "Tokyo Metro",
+      "city": "Tokyo",
+      "country": "Japan",
+      "region": "World",
+      "status": "Operational",
+      "lines": 13,
+      "stations": 290,
+      "networkLength": "345 km",
+      "launchYear": 1927
+    },
+    {
+      "id": 31,
+      "name": "Beijing Subway",
+      "city": "Beijing",
+      "country": "China",
+      "region": "World",
+      "status": "Operational",
+      "lines": 27,
+      "stations": 490,
+      "networkLength": "783 km",
+      "launchYear": 1971
+    },
+    {
+      "id": 32,
+      "name": "Shanghai Metro",
+      "city": "Shanghai",
+      "country": "China",
+      "region": "World",
+      "status": "Operational",
+      "lines": 19,
+      "stations": 474,
+      "networkLength": "703 km",
+      "launchYear": 1993
+    },
+    {
+      "id": 33,
+      "name": "Seoul Metro",
+      "city": "Seoul",
+      "country": "South Korea",
+      "region": "World",
+      "status": "Operational",
+      "lines": 9,
+      "stations": 322,
+      "networkLength": "327 km",
+      "launchYear": 1974
+    },
+    {
+      "id": 34,
+      "name": "New York Subway",
+      "city": "New York",
+      "country": "United States",
+      "region": "World",
+      "status": "Operational",
+      "lines": 24,
+      "stations": 472,
+      "networkLength": "373 km",
+      "launchYear": 1904
+    },
+    {
+      "id": 35,
+      "name": "Singapore MRT",
+      "city": "Singapore",
+      "country": "Singapore",
+      "region": "World",
+      "status": "Operational & Under Construction",
+      "lines": 7,
+      "stations": 156,
+      "networkLength": "226 km",
+      "launchYear": 1987
+    },
+    {
+      "id": 36,
+      "name": "Hong Kong MTR",
+      "city": "Hong Kong",
+      "country": "Hong Kong",
+      "region": "World",
+      "status": "Operational",
+      "lines": 11,
+      "stations": 161,
+      "networkLength": "230 km",
+      "launchYear": 1979
+    },
+    {
+      "id": 37,
+      "name": "Dubai Metro",
+      "city": "Dubai",
+      "country": "United Arab Emirates",
+      "region": "World",
+      "status": "Operational & Under Construction",
+      "lines": 3,
+      "stations": 52,
+      "networkLength": "90 km",
+      "launchYear": 2009
+    },
+    {
+      "id": 38,
+      "name": "Berlin U-Bahn",
+      "city": "Berlin",
+      "country": "Germany",
+      "region": "World",
+      "status": "Operational",
+      "lines": 10,
+      "stations": 173,
+      "networkLength": "147 km",
+      "launchYear": 1902
+    },
+    {
+      "id": 39,
+      "name": "Madrid Metro",
+      "city": "Madrid",
+      "country": "Spain",
+      "region": "World",
+      "status": "Operational",
+      "lines": 13,
+      "stations": 301,
+      "networkLength": "294 km",
+      "launchYear": 1919
+    },
+    {
+      "id": 40,
+      "name": "São Paulo Metro",
+      "city": "São Paulo",
+      "country": "Brazil",
+      "region": "World",
+      "status": "Operational & Under Construction",
+      "lines": 6,
+      "stations": 91,
+      "networkLength": "103 km",
+      "launchYear": 1974
+    },
+    {
+      "id": 41,
+      "name": "Bangkok BTS",
+      "city": "Bangkok",
+      "country": "Thailand",
+      "region": "World",
+      "status": "Operational & Under Construction",
+      "lines": 7,
+      "stations": 102,
+      "networkLength": "165 km",
+      "launchYear": 1999
+    },
+    {
+      "id": 42,
+      "name": "Istanbul Metro",
+      "city": "Istanbul",
+      "country": "Turkey",
+      "region": "World",
+      "status": "Operational & Under Construction",
+      "lines": 8,
+      "stations": 134,
+      "networkLength": "138 km",
+      "launchYear": 2000
+    }
   ],
   "metadata": {
     "totalOperational": 15,
@@ -330,5 +523,13 @@
     "lastUpdated": "2025-12-06",
     "totalOperationalLength": "1013 km",
     "totalUnderConstructionLength": "998 km"
-  }
+  },
+    "globalMetadata": {
+      "totalOperationalGlobal": 16,
+      "totalUnderConstructionGlobal": 3,
+      "totalCountries": 16,
+      "totalGlobalSystems": 16,
+      "totalGlobalStations": 4759,
+      "totalGlobalLength": "6340 km"
+    }
 }
