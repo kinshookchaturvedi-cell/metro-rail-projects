@@ -1,0 +1,101 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "name": "Delhi Metro",
+      "city": "Delhi",
+      "region": "India",
+      "status": "Operational",
+      "lines": 11,
+      "stations": 254,
+      "launchYear": 2002
+    },
+    {
+      "id": 2,
+      "name": "Mumbai Metro",
+      "city": "Mumbai",
+      "region": "India",
+      "status": "Under Construction",
+      "lines": 3,
+      "stations": 38,
+      "launchYear": 2006
+    },
+    {
+      "id": 3,
+      "name": "Bangalore Metro",
+      "city": "Bangalore",
+      "region": "India",
+      "status": "Operational",
+      "lines": 2,
+      "stations": 42,
+      "launchYear": 2011
+    },
+    {
+      "id": 4,
+      "name": "London Underground",
+      "city": "London",
+      "region": "United Kingdom",
+      "status": "Operational",
+      "lines": 11,
+      "stations": 270,
+      "launchYear": 1863
+    },
+    {
+      "id": 5,
+      "name": "Tokyo Metro",
+      "city": "Tokyo",
+      "region": "Japan",
+      "status": "Operational",
+      "lines": 13,
+      "stations": 305,
+      "launchYear": 1927
+    },
+    {
+      "id": 6,
+      "name": "Shanghai Metro",
+      "city": "Shanghai",
+      "region": "China",
+      "status": "Operational",
+      "lines": 17,
+      "stations": 380,
+      "launchYear": 1993
+    }
+  ],
+  "news": [
+    {
+      "id": 1,
+      "title": "Delhi Metro Line 8 Extension Completed",
+      "description": "New extension added to Delhi Metro Line 8, connecting Janakpuri and new residential areas.",
+      "date": "2025-12-06",
+      "location": "Delhi, India"
+    },
+    {
+      "id": 2,
+      "title": "Mumbai Metro Phase 3 Progress Update",
+      "description": "Mumbai Metro Phase 3 construction reaches 45% completion. Expected completion by 2027.",
+      "date": "2025-12-05",
+      "location": "Mumbai, India"
+    },
+    {
+      "id": 3,
+      "title": "Bangalore Metro New Pricing Structure",
+      "description": "Bangalore Metro announces new dynamic pricing for peak and off-peak hours effective from December 15.",
+      "date": "2025-12-04",
+      "location": "Bangalore, India"
+    },
+    {
+      "id": 4,
+      "title": "London Underground Modernization Project",
+      "description": "London Underground announces investment of £1.5 billion for modernization of aging infrastructure.",
+      "date": "2025-12-03",
+      "location": "London, UK"
+    },
+    {
+      "id": 5,
+      "title": "Tokyo Metro Sets Record Ridership",
+      "description": "Tokyo Metro records highest daily ridership of 2.73 million passengers during the holiday season.",
+      "date": "2025-12-02",
+      "location": "Tokyo, Japan"
+    }
+  ]
+}
