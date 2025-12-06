@@ -37,7 +37,7 @@
       top: 100%;
       left: 0;
       margin-top: 5px;
-            max-height: 400px;
+      max-height: 400px;
       overflow-y: auto;
     }
 
@@ -55,8 +55,7 @@
       padding-left: 20px;
     }
 
-    .nav-item:hover .dropdown-menu,
-    .nav-item.active .dropdown-menu {
+    .nav-item:hover .dropdown-menu {
       display: block;
     }
 
@@ -79,15 +78,16 @@
         <a href="#">India ▼</a>
         <div class="dropdown-menu" id="india-dropdown">
           <div class="dropdown-header">Indian Metro Cities</div>
-          <!-- India cities will be populated by JavaScript -->
+          <!-- India cities populated by JavaScript -->
         </div>
       </div>
 
       <!-- World Dropdown -->
       <div class="nav-item">
-        <a href="#">World ▼</a>        <div class="dropdown-menu" id="world-dropdown">
+        <a href="#">World ▼</a>
+        <div class="dropdown-menu" id="world-dropdown">
           <div class="dropdown-header">Global Metro Cities</div>
-          <!-- World cities will be populated by JavaScript -->
+          <!-- World cities populated by JavaScript -->
         </div>
       </div>
 
@@ -112,7 +112,7 @@
             <p><strong>Planned Projects:</strong> <span id="india-planned">Loading...</span></p>
             <p><strong>Total Stations:</strong> <span id="india-stations">Loading...</span></p>
           </div>
-          <a href="#" class="view-details">View India Summary ↓</a>
+          <a href="#india-metro-section" class="view-details">View India Summary ↓</a>
         </div>
         <div id="global-stats" class="stat-card">
           <h3>Global Metro Projects</h3>
@@ -173,52 +173,63 @@
     </section>
   </main>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js"></ script>
   <script>
-    // Populate Navigation Dropdowns
-    function populateNavigationDropdowns(data) {
+    // Populate Navigation Dropdowns - Direct Implementation
+    function populateDropdowns() {
+      const data = window.allMetroData;
+      if (!data || !data.projects) return;
+      
+      console.log('Populating dropdowns with', data.projects.length, 'cities');
+      
       const indiaProjects = data.projects.filter(p => p.region === 'India');
       const globalProjects = data.projects.filter(p => p.region === 'World');
 
       // Populate India dropdown
       const indiaDropdown = document.getElementById('india-dropdown');
-      indiaProjects.forEach(metro => {
-        const link = document.createElement('a');
-        link.href = '#india-metro-section';
-        link.textContent = metro.city + ' Metro';
-        link.onclick = (e) => {
-          e.preventDefault();
-          document.getElementById('metro-city-dropdown').value = metro.id;
-          displayCityDetails(metro);
-          document.getElementById('india-metro-section').scrollIntoView({ behavior: 'smooth' });
-        };
-        indiaDropdown.appendChild(link);
-      });
+      if (indiaDropdown) {
+        indiaProjects.forEach(metro => {
+          const link = document.createElement('a');
+          link.href = '#';
+          link.textContent = metro.city + ' Metro';
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('metro-city-dropdown').value = metro.id;
+            displayCityDetails(metro);
+            document.getElementById('india-metro-section').scrollIntoView({ behavior: 'smooth' });
+          });
+          indiaDropdown.appendChild(link);
+        });
+        console.log('Added', indiaProjects.length, 'India cities to dropdown');
+      }
 
-      // Populate World dropdown
+      // Populate World dropdown  
       const worldDropdown = document.getElementById('world-dropdown');
-      globalProjects.forEach(metro => {
-        const link = document.createElement('a');
-        link.href = 'global.html';
-        link.textContent = metro.city + ' (' + metro.country + ')';
-        link.onclick = (e) => {
-          e.preventDefault();
-          // Store selected metro in session storage for global page
-          sessionStorage.setItem('selectedGlobalMetro', JSON.stringify(metro));
-          window.location.href = 'global.html';
-        };
-        worldDropdown.appendChild(link);
-      });
+      if (worldDropdown) {
+        globalProjects.forEach(metro => {
+          const link = document.createElement('a');
+          link.href = '#';
+          link.textContent = metro.city + ' (' + metro.country + ')';
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            sessionStorage.setItem('selectedGlobalMetro', JSON.stringify(metro));
+            window.location.href = 'global.html';
+          });
+          worldDropdown.appendChild(link);
+        });
+        console.log('Added', globalProjects.length, 'World cities to dropdown');
+      }
     }
 
-    // Call after data is loaded
+    // Call populateDropdowns when data loads
     const originalLoadMetroData = window.loadMetroData;
-    window.loadMetroData = async function() {
-      await originalLoadMetroData.call(this);
-      if (window.allMetroData && window.allMetroData.projects) {
-        populateNavigationDropdowns(window.allMetroData);
-      }
-    };
+    if (typeof originalLoadMetroData === 'function') {
+      window.loadMetroData = async function() {
+        await originalLoadMetroData.call(this);
+        // Give a small delay to ensure DOM is updated
+        setTimeout(populateDropdowns, 100);
+      };
+    }
   </script>
 </body>
 </html>
