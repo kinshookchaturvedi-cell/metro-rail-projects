@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Metro Rail Projects - India & World</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -16,18 +17,105 @@
     </header>
     
     <main>
-        <section id="stats">
+        <!-- Quick Stats Section -->
+        <section id="stats" class="stats-container">
             <h2>Quick Stats</h2>
-            <div id="india-stats">Loading...</div>
-            <div id="global-stats">Loading...</div>
+            <div class="stats-grid">
+                <div id="india-stats" class="stat-card">
+                    <h3>India Metro Projects</h3>
+                    <div class="stat-content">
+                        <p><strong>Total Cities:</strong> <span id="india-cities">Loading...</span></p>
+                        <p><strong>Operational Lines:</strong> <span id="india-operational">Loading...</span></p>
+                        <p><strong>Under Construction:</strong> <span id="india-construction">Loading...</span></p>
+                        <p><strong>Planned Projects:</strong> <span id="india-planned">Loading...</span></p>
+                        <p><strong>Total Route Length:</strong> <span id="india-length">Loading...</span> km</p>
+                    </div>
+                    <a href="india/" class="view-details">View All India Projects →</a>
+                </div>
+                
+                <div id="global-stats" class="stat-card">
+                    <h3>Global Metro Projects</h3>
+                    <div class="stat-content">
+                        <p><strong>Total Countries:</strong> <span id="global-countries">Loading...</span></p>
+                        <p><strong>Total Cities:</strong> <span id="global-cities">Loading...</span></p>
+                        <p><strong>Operational Networks:</strong> <span id="global-operational">Loading...</span></p>
+                        <p><strong>New Projects (2024-25):</strong> <span id="global-new">Loading...</span></p>
+                        <p><strong>Global Route Length:</strong> <span id="global-length">Loading...</span> km</p>
+                    </div>
+                    <a href="global/" class="view-details">View All Global Projects →</a>
+                </div>
+            </div>
         </section>
         
-        <section id="featured">
+        <!-- India Projects Section -->
+        <section id="india-projects" class="projects-section">
+            <h2>India Metro Projects</h2>
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="operational">Operational</button>
+                <button class="filter-btn" data-filter="construction">Under Construction</button>
+                <button class="filter-btn" data-filter="planned">Planned</button>
+            </div>
+            <div id="india-projects-list" class="projects-grid">
+                <!-- Dynamic content loaded via JavaScript -->
+                <div class="loading-placeholder">Loading India metro projects...</div>
+            </div>
+        </section>
+        
+        <!-- Global Projects Section -->
+        <section id="global-projects" class="projects-section">
+            <h2>Global Metro Projects</h2>
+            <div class="region-filters">
+                <button class="filter-btn active" data-region="all">All Regions</button>
+                <button class="filter-btn" data-region="asia">Asia</button>
+                <button class="filter-btn" data-region="europe">Europe</button>
+                <button class="filter-btn" data-region="americas">Americas</button>
+                <button class="filter-btn" data-region="middleeast">Middle East</button>
+                <button class="filter-btn" data-region="africa">Africa</button>
+            </div>
+            <div id="global-projects-list" class="projects-grid">
+                <!-- Dynamic content loaded via JavaScript -->
+                <div class="loading-placeholder">Loading global metro projects...</div>
+            </div>
+        </section>
+        
+        <!-- Latest News/Updates Section -->
+        <section id="featured" class="news-section">
             <h2>Latest Updates</h2>
-            <ul id="news-list">Loading...</ul>
+            <div class="news-categories">
+                <button class="category-btn active" data-category="all">All News</button>
+                <button class="category-btn" data-category="inauguration">Inaugurations</button>
+                <button class="category-btn" data-category="construction">Construction Updates</button>
+                <button class="category-btn" data-category="planning">Planning & Approvals</button>
+            </div>
+            <ul id="news-list" class="news-list">
+                <!-- Dynamic news items loaded via JavaScript -->
+                <li class="loading-placeholder">Loading latest updates...</li>
+            </ul>
+            <a href="news/" class="view-all-news">View All News →</a>
+        </section>
+        
+        <!-- Project Status Comparison Chart Placeholder -->
+        <section id="comparison" class="chart-section">
+            <h2>Project Status Comparison</h2>
+            <div id="status-chart" class="chart-container">
+                <!-- Chart will be rendered via JavaScript library -->
+                <canvas id="statusCanvas"></canvas>
+            </div>
         </section>
     </main>
     
+    <footer>
+        <p>&copy; 2024 Metro Rail Projects Tracker | Data updated regularly</p>
+        <nav>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="api.html">API</a>
+        </nav>
+    </footer>
+    
+    <!-- JavaScript for dynamic content loading -->
     <script src="js/main.js"></script>
+    <script src="js/charts.js"></script>
 </body>
 </html>
